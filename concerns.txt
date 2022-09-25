@@ -1,0 +1,2 @@
+-Mongodb connection is not encrypted and is accesible through the internet. 
+-https://www.youtube.com/watch?v=4G5t1HwHQD4 thought process for the admin panel (using css framework , maybe react?)

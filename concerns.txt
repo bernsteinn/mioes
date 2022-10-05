@@ -1,2 +1,4 @@
--Mongodb connection is not encrypted and is accesible through the internet. 
+-Mongodb connection is not encrypted (now just accessible through localhost)
 -https://www.youtube.com/watch?v=4G5t1HwHQD4 thought process for the admin panel (using css framework , maybe react?)
+-Encode json in base64 do not forget (admin panel)
+-Maps searcher (google maps api?) for coordinates (admin panel)

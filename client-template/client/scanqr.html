@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<script src="https://unpkg.com/html5-qrcode"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>MIOES: Tu carta digital.</title>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+<script type="text/javascript" src="scripts/scanQr.js"></script>
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+</head>
+    
+<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default" onload="scanQr()">
+    
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+    
+<div id="page">
+    <div id="footer-bar" class="footer-bar-1">
+        <a href="index.html"><i class="fa fa-home"></i><span>Inicio</span></a>
+        <a href="#" class="qr-init active-nav"><i class="fa fa-qrcode"></i><span>Escanear QR</span></a>
+        <a href="index-pages.html"><i class="fa fa-store"></i><span>Restaurantes</span></a>
+        <a href="index-search.html"><i class="fa fa-search"></i><span>Buscar</span></a>
+        <a href="#" data-menu="menu-settings"><i class="fa fa-cog"></i><span>Configuración</span></a>
+    </div>
+        
+    <div class="page-content header-clear-small">
+    
+        <div class="card card-style">
+            <div id="reader"></div>
+            <h1 style="text-align:center;">Escanea el código QR</h1>
+        </div>
+            
+    </div>
+    </div>
+
+    <!-- End of Page Content--> 
+    <!-- All Menus, Action Sheets, Modals, Notifications, Toasts, Snackbars get Placed outside the <div class="page-content"> -->
+    <div id="menu-settings" class="menu menu-box-bottom menu-box-detached">
+        <div class="menu-title mt-0 pt-0"><h1>Configuración</h1></div>
+        <div class="divider divider-margins mb-n2"></div>
+        <div class="content">
+            <div class="list-group list-custom-small">
+                <a href="#" data-toggle-theme data-trigger-switch="switch-dark-mode" class="pb-2 ms-n1">
+                    <i class="fa font-12 fa-moon rounded-s bg-highlight color-white me-3"></i>
+                    <span>Modo oscuro</span>
+                    <div class="custom-control scale-switch ios-switch">
+                        <input data-toggle-theme type="checkbox" class="ios-input" id="switch-dark-mode">
+                        <label class="custom-control-label" for="switch-dark-mode"></label>
+                    </div>
+                    <i class="fa fa-angle-right"></i>
+                </a>    
+            </div>
+        </div>
+    </div>
+    <!-- Menu Settings Highlights-->
+
+    <!-- Menu Settings Backgrounds-->
+    <!-- Menu Share -->
+  
+</div>
+
+</body>

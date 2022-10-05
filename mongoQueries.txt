@@ -1,0 +1,6 @@
+db.posts.update({author: "El Cingle"}, {$set: {profile_pic: "/images/social/userImages/cingle.png", rating:"4", stars:"
+  <i class='color-theme opacity-60 fa fa-star font-12 pe-1'></i><i class='color-theme opacity-60 fa fa-star font-12 pe-1'></i><i class='color-theme 
+opacity-60 fa fa-star font-12 pe-1'></i><i class='color-theme opacity-60 fa fa-star font-12 pe-1'></i>"}})
+
+
+db.posts.insert({stars:"<i class='color-theme opacity-60 fa fa-star font-12 pe-1'></i><i class='color-theme opacity-60 fa fa-star font-12 pe-1'></i><i class='color-theme opacity-60 fa fa-star font-12 pe-1'></i><i class='color-theme opacity-60 fa fa-star-half font-12 pe-1'></i>", profile_pic: "/images/social/userImages/mui_cuina_evocativa.png", author: "Mui Cuina Evocativa", img: "/images/social/mun-cuina-evocativa-posts/post872981792.png", body: "¡Ven a provar nuestra nueva hamburguesa, apta para todo el mundo!",title: "Ven a provar nuestro nuevo plato" ,date: "21 de Septiembre, 2022", rating: "3.6"})

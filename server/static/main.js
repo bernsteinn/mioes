@@ -28,14 +28,26 @@ pageTitle.style.textAlign = "center"
 var localstream
 function showCarta(){
   var container = document.getElementById("content")
+  var section = document.createElement("section")
+  section.className ="layout"
+  section.id = "layout"
+  container.innerHTML = ""
+  container.appendChild(section)
   var data = JSON.parse(sessionStorage.getItem("r_info"))
   document.getElementById("cart").style.backgroundColor = "black"
   document.getElementById("cart").style.color = "white"
   document.getElementById("description").style.backgroundColor = "#d1e6e8"
   document.getElementById("description").style.color = "#0c032d"
-  container.innerHTML = ""
-
-
+  var data = JSON.parse(sessionStorage.getItem("r_info"))
+  data.menuCategories.forEach(element => {
+    var category = document.createElement("div")
+    category.className = "menu-element"
+    category.innerHTML = `<img class="categoryImage" src=${element.img}><p class="categoryName">${element.name}</p>`
+    section.appendChild(category)
+  });
+  var stylesMenu = document.getElementById("layout")
+  stylesMenu.style.gridTemplateRows = `repeat(${data.menuElements}, 1fr)`
+  stylesMenu.style.height = `${data.menuElements * 20}vh`
 }
 function showDescription(){
   var container = document.getElementById("content")
@@ -65,6 +77,7 @@ async function scanQr(){
             const reader = new Html5Qrcode("reader")
             reader.start({ facingMode: "environment"},{fps:10, qrbox: 250}, (decodedText, decodedResult) =>{
               document.body.appendChild(loader)
+              reader.stop()
               Loader.open()
                 fetch("https://api.mioes.app/qr-results", {
                   method: "POST",
@@ -76,7 +89,6 @@ async function scanQr(){
                   setTimeout(() => {
                     Loader.close()
                   }, 500)
-                  reader.stop()
                   console.log(data)
                   document.body.style.backgroundColor = "white"
                   appWrapper.hidden = false  
@@ -84,11 +96,11 @@ async function scanQr(){
                   video.pause()
                   video.hidden = true
                   document.querySelector(".loader").hidden = false
-                  appWrapper.innerHTML = `<div style='height:100vh;background-color:#ffc244;'>
+                  appWrapper.innerHTML = `<div style='height:300vh;background-color:#ffc244;'>
                   <img src='/${data.img}' style='width:100vw;display:block; margin-left:auto, margin-right:auto; border-bottom-right-radius: 50% 18%; border-bottom-left-radius: 50% 18%;'>
                   <h1 style='text-align:center;'>${data.name}</h1>
                   <h3 style='text-align:center;'>
-                  <span style="position:relative; top:5px;"class="material-symbols-outlined">location_on</span>
+                  <span style="position:relative; top:5px;"class="material-symbols-outlined" onclick="mapsSelector(${data.lat}, ${data.long})">location_on</span>
                   ${data.address}
                   </h3>
                   <div class="btn-group" style="    display: flex;
@@ -150,10 +162,10 @@ function searchRestaurant(){
     pageTitle.hidden = true
     video.pause()
     video.hidden = true
-    appWrapper.innerHTML = `<div style='height:100vh;background-color:#ffc244;'>
+    appWrapper.innerHTML = `<div style='height:300vh;background-color:#ffc244;'>
     <img src='/${data.img}' style='width:100vw;display:block; margin-left:auto, margin-right:auto; border-bottom-right-radius: 50% 18%; border-bottom-left-radius: 50% 18%;'>
     <h1 style='text-align:center;'>${data.name}</h1><h3 style='text-align:center;'>
-    <span style="position:relative; top:5px;"class="material-symbols-outlined">location_on</span>
+    <span style="position:relative; top:5px;"class="material-symbols-outlined" onclick="mapsSelector(${data.lat}, ${data.long})">location_on</span>
     ${data.address}</h3>
     <div class="btn-group" style="    display: flex;
     justify-content: center; gap: 10px;
@@ -184,4 +196,14 @@ function searchRestaurant(){
   })
 
 
+}
+
+function mapsSelector(lat, long) {
+  if 
+    ((navigator.platform.indexOf("iPhone") != -1) || 
+     (navigator.platform.indexOf("iPad") != -1) || 
+     (navigator.platform.indexOf("iPod") != -1))
+    window.open("maps://maps.google.com/maps?daddr="+lat+","+long+"&amp;ll=");
+    else
+    window.open("https://maps.google.com/maps?daddr="+lat+","+long+"&amp;ll=");
 }

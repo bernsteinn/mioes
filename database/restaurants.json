@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "632e5ec4574591348eaffbe3"
+  },
+  "name": "Test",
+  "address": "Test street",
+  "tables": 15,
+  "rid": "9cn72la",
+  "img": "test.png",
+  "description": "Test description",
+  "tipo": "Example tipology",
+  "latitude": "41.3953772",
+  "longitude": "2.1575516",
+  "menuElements": "2",
+  "menuCategories": [
+    {
+      "name": "Hamburguesas",
+      "id": 69,
+      "img": "/restaurants/632e5ec4574591348eaffbe3/4e4293857c03d819e4ae51de1e86d66a.png"
+    },
+    {
+      "name": "Entrantes",
+      "id": "70",
+      "img": "/restaurants/632e5ec4574591348eaffbe3/4e4293857c03d81i8dnng62lae86d66a.png"
+    }
+  ]
+}]

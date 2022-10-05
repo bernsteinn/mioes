@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIOES: Tu carta digital</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/extra/ilmosys-icon.css">
+    <link rel="stylesheet" href="fonts/extra/swipebox.min.css">
+    <script src="/scripts/mobile-custom.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+    <script src="/scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="scripts/scanQr.js"></script>
+    <link rel="stylesheet" href="styles/slick.css">
+    <link rel="stylesheet" href="styles/landing.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <script src="/scripts/mobile-loader.js"></script>
+    <script src="/scripts/checkLoadedPage.js"></script>
+
+</head>
+<body class="theme-light" data-highlight="highlight-red" style="max-width: 100vh !important ;">
+    <div id="page">
+        <header>
+            <nav class="navbar-inverse navbar-lg navbar-fixed-top" id="headerNav" style="background: transparent; box-shadow: none; z-index: 93; max-width: 100vh;">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand brand"><img src="app/logo/logo.png" alt="logo" style="height: 39px !important; border-radius:5px;"></a>
+                    </div>
+
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+
+                    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 0px;">
+                        <ul class="nav navbar-nav navbar-right navbar-login">
+                            <li>
+                                 <a href="mail:service@mioes.app" style="color: rgb(168, 45, 73);"><span class="icon-call"></span>service@mioes.app</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div id="footer-bar" class="footer-bar-1">
+            <a style="cursor:pointer;"onclick="window.location = '/'" class="active-nav"><i class="fa fa-home"></i><span>Inicio</span></a>
+            <a style="cursor:pointer;"onclick="window.location = '/scanqr'" id="qr-init" class="qr-init"><i class="fa fa-qrcode"></i><span>Escanear QR</span></a>
+            <a style="cursor:pointer;"onclick="window.location = '/foryou'"><i class="fa fa-store"></i><span>Restaurantes</span></a>
+            <a style="cursor:pointer;"onclick="window.location = '/search'"><i class="fa fa-search"></i><span>Buscar</span></a>
+            <a style="cursor:pointer;"onclick="window.location = '/pro'"><i class="fa fa-gem"></i><span><b>PRO</b></span></a>
+        </div>
+                
+
+
+        <!-- Home -->
+        <div class="intro intro3" id="loadedPage" data-src="images/landing/3.jpg" style="height: 100vh ;">
+            <div class="container">
+                <div class="row center-content">
+                    <div class="col-md-5 col-sm-6">
+                        <h3 style="line-height: normal !important;">MIOES: Tu carta digital</h3>
+                        <p>Simplemente escanea un código QR.</p>
+                        <div class="space30"></div>
+                        <div class="dual-btn">
+                            <a href="#afterLoading" class="btn btn-lg btn-primary page-scroll">Empezar ahora <span class="fa fa-shopping-basket"></span></a> &nbsp; &nbsp;
+                        </div>
+
+                    </div>
+                    <div class="col-md-7 col-sm-6 no-padding">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="d-flex px-3 mb-n3 mt-4" id="afterLoading">
+        <div class="align-self-center">
+            <h4 class="mb-0">Restaurantes recomendados</h4>
+        </div>
+    </div>
+
+    <div class="splide double-slider slider-no-dots visible-slider" id="double-slider-1a" style="overflow: hidden;">
+        <div class="splide__track">
+            <div class="splide__list">
+                <div class="splide__slide">
+                    <a href="#" class="mx-3">
+                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/cingle.png);" data-card-height="250">
+                            <div class="card-top p-2">
+                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Relevante</span>
+                            </div>
+                            <div class="card-bottom p-2 px-3">
+                                <h3 class="color-white line-height-s">El Cingle</h3>
+                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>Pl. Major, 7, Vacarisses</span>
+                            </div>
+                            <div class="card-overlay bg-gradient"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="splide__slide">
+                    <a href="#" class="mx-3">
+                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/melange.png);" data-card-height="250">
+                            <div class="card-top p-2">
+                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Moderno</span>
+                            </div>
+                            <div class="card-bottom p-2 px-3">
+                                <h3 class="color-white line-height-s">Mélange</h3>
+                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>C/ de Baix, Terrassa</span>
+                            </div>
+                            <div class="card-overlay bg-gradient"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="splide__slide">
+                    <a href="#" class="mx-3">
+                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/lanova.png);" data-card-height="250">
+                            <div class="card-top p-2">
+                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Muy popular</span>
+                            </div>
+                            <div class="card-bottom p-2 px-3">
+                                <h3 class="color-white line-height-s">La Nova</h3>
+                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>Plaça Nova, Terrassa</span>
+                            </div>
+                            <div class="card-overlay bg-gradient"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="splide__slide">
+                    <a href="#" class="mx-3">
+                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/eclipse.png);" data-card-height="250">
+                            <div class="card-top p-2">
+                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Buenos precios</span>
+                            </div>
+                            <div class="card-bottom p-2 px-3">
+                                <h3 class="color-white line-height-s">L'eclipsse</h3>
+                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>C/ Honorat, Terrassa</span>
+                            </div>
+                            <div class="card-overlay bg-gradient"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="splide__slide">
+                    <a href="#" class="mx-3">
+                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/labodeguilla.png);" data-card-height="250">
+                            <div class="card-top p-2">
+                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Espacio acogedor</span>
+                            </div>
+                            <div class="card-bottom p-2 px-3">
+                                <h3 class="color-white line-height-s">La Bodeguilla</h3>
+                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>C/ Cosidores, Terrassa</span>
+                            </div>
+                            <div class="card-overlay bg-gradient"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex px-3 mb-2">
+        <div class="align-self-center">
+            <h4 class="mb-0">Restaurante de la semana</h4>
+        </div>
+    </div>
+
+    <div class="card card-style" style="background-image:url(images/restaurants/evocativa.jpg)" data-card-height="260">
+        <div class="card-top no-click p-2 m-1">
+        </div>
+        <div class="card-top p-3">
+            <a href="#" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">Ver ahora</a>
+        </div>
+        <div class="card-bottom m-2">
+            <div class="d-block px-2 py-2 rounded-m">
+                <div class="pe-3">
+                    <h1 class="color-white font-23 font-800 mb-0">MUN Cuina evocativa</h1>
+                    <p class="color-white font-12 mb-0 line-height-s opacity-70">Cocina moderna</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-overlay bg-gradient opacity-80"></div>
+    </div>
+
+
+    <div class="d-flex px-3">
+        <div class="align-self-center">
+            <h4 class="mb-0">Popular en MIOES</h4>
+        </div>
+    </div>
+
+    <div class="content mt-2 mb-n3" style="height:65vh ;">
+        <div class="row">
+            <div class="col-6 pe-2">
+                <a href="#" class="card card-style mx-0 mb-3 types">
+                    <div class="card-top m-2">
+                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">1</span>
+                    </div>
+                    <img src="images/restaurants/asiaticos.png" alt="img" style="height: 100px;" class="img-fluid types-img">
+                    <div class="p-2">
+                        <h4>Comida Asiática</h4>
+                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Sírvete unos fideos, un sushi o un rollito de primavera de calidad!</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 ps-2">
+                <a href="#" class="card card-style mx-0 mb-3 types">
+                    <div class="card-top m-2">
+                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">2</span>
+                    </div>
+                    <img src="images/restaurants/pizzerias.png" alt="img" width="100" style="height: 100px;" class="img-fluid types-img">
+                    <div class="p-2">
+                        <h4>Pizzerias</h4>
+                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Pizzas elaboradas con alimentos de la mejor calidad!</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 pe-2">
+                <a href="#" class="card card-style mx-0 mb-3 types">
+                    <div class="card-top m-2">
+                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">3</span>
+                    </div>
+                    <img src="images/restaurants/tapas.png" alt="img" style="height: 100px;" class="img-fluid types-img">
+                    <div class="p-2">
+                        <h4>Tapas</h4>
+                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">Un lugar para compartir experiencias y comer bien.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 ps-2">
+                <a href="#" class="card card-style mx-0 mb-3 types">
+                    <div class="card-top m-2">
+                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">4</span>
+                    </div>
+                    <img src="images/restaurants/mexicanos.png" alt="img" width="100" style="height: 100px;" class="img-fluid types-img">
+                    <div class="p-2">
+                        <h4>Comida Mexicana</h4>
+                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Fajitas, burritos, nachos, quesadillas, tacos y el mejor de los guacamoles!</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

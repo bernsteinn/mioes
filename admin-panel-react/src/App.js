@@ -15,6 +15,8 @@ import Error from './components/Error'
 import Register from './components/Register';
 import SetUpAccount from './components/SetUpAccount.js'
 import CreateRestaurantProfile from './components/CreateRestaurantProfile';
+import QrCodeGenerator from './components/QrCodeGenerator'
+import Premium from './components/Premium';
 function App() {
     const router = createBrowserRouter([
       {
@@ -52,6 +54,14 @@ function App() {
       {
         path: "/admin/profile",
         element: <CreateRestaurantProfile/>
+      },
+      {
+        path: "/admin/qrcode",
+        element: <QrCodeGenerator/>
+      },
+      {
+        path: "/admin/premium",
+        element: <Premium/>
       }
     ]);
   return (

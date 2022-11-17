@@ -22,12 +22,15 @@ export default function SocialMedia(){
             body: form
         }).then(response => response.json()).then((data) => {
             if(data.status == true){
-                console.log("Posted succesfully")
+                toast.success("Publicación publicada con éxito")
+                return
             }
+            toast.error(data.msg)
+            
         })
     }
     return(<><Sidebar element = {
-<div className="card card-style" style={{height: '70%', marginLeft: '10%', marginTop: '10%'}}>
+<div className="card card-style" style={{height: '75%', marginLeft: '10%', marginTop: '5%'}}>
 
     <div className="content mb-0">
       <h3>Nueva publicación</h3>
@@ -42,9 +45,9 @@ export default function SocialMedia(){
         <em>(obligatorio)</em>
       </div>
       <div className="input-style has-borders no-icon mb-4">
-        <textarea id="msg"placeholder="Enter your message" defaultValue={""} />
+        <textarea id="msg"placeholder="Tu mensaje..." defaultValue={""} />
         <label htmlFor="msg" className="color-highlight">Texto para tu publicación</label>
-        <em className="mt-n3">(required)</em>
+        <em className="mt-n3">(obligatorio)</em>
       </div>
       <div className="input-style has-borders no-icon validate-field mb-4">
       <div>
@@ -54,11 +57,11 @@ export default function SocialMedia(){
         </p>
         <div className="file-data pb-5">
           <input type="file" id="postImage" className="upload-file bg-highlight shadow-s rounded-s " accept="image/*" />
-          <p className="upload-file-text color-white">Subir imagen</p>
+          <p className="upload-file-text color-white" style={{cursor: "pointer"}}>Subir imagen</p>
         </div>
       </div>
       </div>
       <a href="#" onClick={newPost} className="btn btn-m rounded-sm mt-4 mb-4 btn-full bg-green-dark text-uppercase font-900">Crear Publicación</a>
     </div>
-  </div>}></Sidebar></>)
+  </div>}></Sidebar><ToastContainer></ToastContainer></>)
 }

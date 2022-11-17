@@ -86,9 +86,12 @@ export default function Login(){
             }, 500)
         })
     }
+    function registerRedirect(){
+        window.location = "/admin/register"
+    }
     return(
         
-        <div className={styles.screen1}>
+        <div className={styles.screen1} style={{fontFamily: "Poppins"}}>
             <img className={styles.logo} src={"/logo_login.png"}></img>
         <div className={styles.email} id="emailContainer">
           <div className={styles.sec2}>
@@ -104,6 +107,7 @@ export default function Login(){
           </div>
         </div>
         <button className={styles.login} onClick={loginOW}>Iniciar sesión</button>
+        <p onClick={registerRedirect} style={{cursor: "pointer"}}>Registrarse</p>
         <ToastContainer
 position="top-right"
 autoClose={5000}

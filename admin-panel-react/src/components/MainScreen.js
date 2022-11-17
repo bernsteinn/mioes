@@ -14,23 +14,19 @@ export default function MainScreen(){
     useEffect(() => {
       fetch("/session", {credentials: 'include'}).then(response => response.json()).then((data) => {
         if(data.loggedin != true){
-          setTimeout(() => {
             setLoading(false)
             setLoggedin(false)
-          }, 1000)
           return
         }
-        setTimeout(() => {
           setLoggedin(true)
           setLoading(false)
-          }, 1000)
   
       })  
     }, [])  
     return(
     <div>  
     <SocketContext.Provider value={socket}>
-    {loading == false ? loggedIn == true && loading == false ? <Dashboard/> : <Login/> : <Spinner/>}
+    {loading == false ? loggedIn == true && loading == false ? <Dashboard/> : window.location = "/" : <Spinner/>}
     </SocketContext.Provider>
     </div>
 

@@ -1,8 +1,9 @@
 //Removing Preloader
 setTimeout(function(){
     var preloader = document.getElementById('preloader')
-    if(preloader){preloader.classList.add('preloader-hide');}
-},150);
+    var imgLoaderContainer = document.getElementById("imgLoaderContainer")
+    if(preloader){preloader.classList.add('preloader-hide'); imgLoaderContainer.hidden = true}
+},250);
 
 document.addEventListener('DOMContentLoaded', () => {
     'use strict'
@@ -885,9 +886,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             if(data.status == true){
                                 data.results.forEach((result) => {
                                     var template = `
-                                    <a href="#" class="d-flex py-2">
+                                    <a href="${result.url}" class="d-flex py-2">
                                     <div>
-                                        <img src="${result.img}" class="rounded-sm me-3" width="50" alt="img">
+                                        <img src="${result.profile_pic}" style="height: 50px;object-fit: cover;" class="rounded-sm me-3" width="50" alt="img">
                                     </div>
                                     <div>
                                         <span class="color-highlight font-400 d-block pt-0 text-uppercase font-10">${result.address}</span>

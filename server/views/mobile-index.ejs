@@ -1,252 +1,666 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIOES: Tu carta digital</title>
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
-    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/extra/ilmosys-icon.css">
-    <link rel="stylesheet" href="fonts/extra/swipebox.min.css">
-    <script src="/scripts/mobile-custom.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
-    <script src="/scripts/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
-    <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
-    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
-    <script src="https://unpkg.com/html5-qrcode"></script>
-    <script src="scripts/scanQr.js"></script>
-    <link rel="stylesheet" href="styles/slick.css">
-    <link rel="stylesheet" href="styles/landing.css">
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <script src="/scripts/mobile-loader.js"></script>
-    <script src="/scripts/checkLoadedPage.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>MIOES | Inicio</title>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel=icon href=app/icons/icon-72x72.png sizes="72x72" type="image/png">
+<link rel=icon href=app/icons/icon-192x192.png sizes="192x192" type="image/vnd.microsoft.icon">
+<link rel=icon href=app/icons/icon-128x128.png sizes="128x128 512x512 8192x8192 32768x32768">
+<link rel=icon href=app/icons/icon-192x192.png sizes="any" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap" rel="stylesheet">
+<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
-<body class="theme-light" data-highlight="highlight-red" style="max-width: 100vh !important ;">
-    <div id="page">
-        <header>
-            <nav class="navbar-inverse navbar-lg navbar-fixed-top" id="headerNav" style="background: transparent; box-shadow: none; z-index: 93; max-width: 100vh;">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a href="#" class="navbar-brand brand"><img src="app/logo/logo.png" alt="logo" style="height: 39px !important; border-radius:5px;"></a>
+<script>
+    $(document).ready(function() {
+        var swiper = new Swiper('.swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 20,
+  effect: 'fade',
+  loop: true,
+  speed: 300,
+  mousewheel: {
+    invert: false,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+    dynamicBullets: true
+  },
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  }
+});
+    fetch("/users/session",{credentials: 'include'}).then(re => re.json()).then((data) => {
+            if(data.loggeddin == false){
+                $('#loginModal').modal('show')
+            }
+    })
+    setInterval(() => {
+        fetch("/users/session",{credentials: 'include'}).then(re => re.json()).then((data) => {
+            if(data.loggeddin == false){
+                $('#loginModal').modal('show')
+            }
+        })
+    }, 90000)
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  $("#loginPopupTrigger").click(() =>{
+    fetch("/users/session", {credentials: 'include'}).then(res => res.json()).then((response) => {
+        if(response.loggeddin == true){
+            $("#manageAccount").modal("show")
+            return
+        }
+        $('#loginModal').modal('show');
+    })
+  })
+  $(".close").click(() =>{$('#loginModal').modal('hide');$("#registerModal").modal('hide');$("#manageAccount").modal("hide")})
+  $("#registerOpen").click(() => {$('#loginModal').modal('hide');$("#registerModal").modal('show');})
+  $("#loginOpen").click(() => {$("#registerModal").modal('hide');$('#loginModal').modal('show');})
+  $(".loginBtn").click(() => {
+    var data = new FormData()
+    data.append("user", document.getElementById("username").value)
+    data.append("pass", document.getElementById("password").value)
+    fetch("/users/login", {method: 'POST', credentials: 'include' , body:data }).then(res => res.json()).then((response) =>{
+        if(response.status != true){
+            Toastify({
+        text: "Contraseña o usuario incorrecto",
+        duration: 2000,
+        newWindow: false,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #d92626, #ff0000)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+        return
+        }
+        else{
+            $('#loginModal').modal('hide');
+            sessionStorage.setItem("user", true)
+            Toastify({
+        text: "¡Sessión iniciada correctamente!",
+        duration: 3000,
+        newWindow: false,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #56f53d, #21f300)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
+        }
+    })
+  })
+  $(".registerBtn").click(() => {
+    if(document.getElementById("password1").innerText == document.getElementById("passwordRepeat").innerText){
+    var data = new FormData()
+    data.append("user", document.getElementById("email1").value)
+    data.append("pass", document.getElementById("password1").value)
+    fetch("/users/register", {method: 'POST', credentials: 'include' , body:data }).then(res => res.json()).then((response) =>{
+        if(response.status != true){
+            Toastify({
+        text: response.msg,
+        duration: 2000,
+        newWindow: false,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #d92626, #ff0000)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+        }
+        else{
+            $("#registerModal").modal('hide')
+            Toastify({
+        text: "¡Te has registrado correctamente!",
+        duration: 3000,
+        newWindow: false,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #56f53d, #21f300)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
+            $('#loginModal').modal('show');
+
+        }
+    })
+    return
+    }
+    Toastify({
+        text: "Las contraseñas no coinciden",
+        duration: 2000,
+        newWindow: false,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #d92626, #ff0000)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+
+  })
+
+$("#googleLogin").click(() => {
+   window.location = "/auth/google" 
+})
+});
+</script>
+
+<style>
+     @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    .loginContainer {
+  padding: 2rem 0rem;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 400px;
+  }
+  .modal-dialog .modal-content {
+    padding: 1rem;
+  }
+}
+.modal-header .close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+.form-title {
+  margin: -2rem 0rem 0.5rem;
+}
+.modal-title{
+    font-family: 'Jost', sans-serif;
+    font-size: 35px;
+
+}
+.form-control,
+.form-control::placeholder {
+    font-size: 15px !important;
+}
+
+.btn-round {
+  border-radius: 3rem;
+}
+.loginBtn{
+    border: 0;
+    margin-top: 3%;
+    height: 40px;
+    width: 95%;
+    background-image: linear-gradient(-45deg, #ed4162 0%, #f86a56 100%);
+}
+.registerBtn{
+    border: 0;
+    margin-top: 3%;
+    height: 40px;
+    width: 95%;
+    background-image: linear-gradient(-45deg, #ed4162 0%, #f86a56 100%);
+}
+.delimiter {
+  padding: 1rem;
+}
+
+.social-buttons .btn {
+  margin: 0 0.5rem 1rem;
+  width: 100%;
+  height: 40px;
+
+}
+.form-group{
+    padding: 5px;
+}
+.signup-section {
+  padding: 0.3rem 0rem;
+}
+
+#loginOpen{
+    background: linear-gradient(-45deg, #ed4162 0%, #f86a56 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#registerOpen{
+    background: linear-gradient(-45deg, #ed4162 0%, #f86a56 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+</style>
+<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
+
+<div id="preloader"><div class="spinner-border color-highlight" role="status"><img id="imgLoaderContainer" src="/app/icons/preloader.gif" width="100px" height="100px"></div></div>
+
+<div id="page">
+
+
+    <%- include("footer.ejs", {qrCode: false, home: true, restaurants: false}) %>
+    <div class="page-content">
+        <img style="height: 35px;
+        width: 35px;
+        position: absolute;
+        top: 18px;
+        right: 20px;" src="/images/social/anon.png" id="loginPopupTrigger">
+        <div class="content notch-clear">
+            <div class="d-flex pt-2">
+                <div class="align-self-center me-auto">
+                    <h1 class="mt-n2 font-27">¡Bienvenido a MIOES! 👋</h1>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content" style="border-radius: 10px; top: -25px;">
+                <div class="modal-header border-bottom-0">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px;">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-title text-center">
+                    <h4 class="modal-title">Iniciar sesión</h4>
+                  </div>
+                  <div class="d-flex flex-column text-center">
+                    <form>
+                      <div class="form-group">
+                        <input type="email" class="form-control" id="username" placeholder="Tu email" style="height: 4em;font-size: 15px !important;" required>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="password"  placeholder="Tu contraseña" style="height: 4em;font-size: 15px !important;" required>
+                      </div>
+                      <button type="button" class="btn btn-info btn-block btn-round loginBtn">Iniciar sesión</button>
+                    </form>
+                    
+                    <div class="text-center text-muted delimiter">o usa una red social</div>
+                    <div class="d-flex justify-content-center social-buttons">
+                      <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top" title="Google" id="googleLogin">
+                        <i class="fab fa-google"></i>
+                      </button>
+                    </di>
+                  </div>
+                </div>
+              </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <div class="signup-section">No tienes una cuenta? <a href="#a" class="text-info" id="registerOpen">Registrate ahora</a>.</div>
+                </div>
+            </div>
+          </div>
+          </div>
+          <div class="modal fade" id="manageAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content" style="border-radius: 10px; top: -25px;">
+                <div class="modal-header border-bottom-0">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px;">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-title text-center">
+                    <h4 class="modal-title">Gestionar tu cuenta</h4>
+                  </div>
+                  <div class="d-flex flex-column text-center">
+                    <form>
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="password2" placeholder="Tu contraseña" style="height: 4em;font-size: 15px !important;">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="password3" placeholder="Tu nueva contraseña" style="height: 4em;font-size: 15px !important;">
+                      </div>
+
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="password4" placeholder="Repite tu nueva contraseña" style="height: 4em;font-size: 15px !important;"> 
+                      </div>
+                      <button type="button" class="btn btn-info btn-block btn-round registerBtn">Guardar</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content" style="border-radius: 10px; top: -25px;">
+                <div class="modal-header border-bottom-0">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px;">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-title text-center">
+                    <h4 class="modal-title">Registrarse</h4>
+                  </div>
+                  <div class="d-flex flex-column text-center">
+                    <form>
+                      <div class="form-group">
+                        <input type="email" class="form-control" id="email1" placeholder="Tu email" style="height: 4em;font-size: 15px !important;" required>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="password1" placeholder="Tu contraseña" style="height: 4em;font-size: 15px !important;" required>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control" id="passwordRepeat" placeholder="Repite tu contraseña" style="height: 4em;font-size: 15px !important;" required>
+                      </div>
+                      <button type="button" class="btn btn-info btn-block btn-round registerBtn">Registrarte ahora</button>
+                    </form>
+                    
+                    <div class="text-center text-muted delimiter">o usa una red social</div>
+                    <div class="d-flex justify-content-center social-buttons">
+                      <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top" title="Google" id="googleLogin">
+                        <i class="fab fa-google"></i>
+                      </button>
+                    </di>
+                  </div>
+                </div>
+              </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <div class="signup-section">Ya tienes una cuenta? <a href="#a" class="text-info" id="loginOpen">Inicia sesión</a>.</div>
+                </div>
+            </div>
+          </div>
+          </div>
+        <div class="content mt-n1">
+            <div class="search-box bg-theme color-theme rounded-m shadow-l">
+                <i class="fa fa-search"></i>
+                <input type="text" class="border-0" placeholder="Busca tu restaurante favorito..." data-search>
+				<a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
+            </div>
+            <div class="search-results disabled-search-list mt-3">
+                <div class="card card-style mx-0 px-2 p-0 mb-0" id="searchResultContainer">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="search-no-results disabled mt-4">
+            <div class="card card-style">
+                <div class="content">
+                    <h1>Sin resultados</h1>
+                    <p>
+                       Tu término de busqueda no obtuvo ningún restaurante. Comprueba la ortografia o prueba usando otro término.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex px-3 mb-n3">
+            <div class="align-self-center">
+                <h4 class="mb-0">Categorias Recomendadas</h4>
+            </div>
+            <div class="align-self-center ms-auto">
+                <a href="/categories" class="font-12">Ver todas</a>
+            </div>
+        </div>
+
+        <div class="splide double-slider slider-no-dots text-center visible-slider" id="double-slider-1a">
+            <div class="splide__track">
+                <div class="splide__list">
+                    <div class="splide__slide">
+                        <a href="#" class="mx-3">
+                            <div class="card card-style me-0 mb-0" style="background-image:url(images/grocery/9m.jpg);" data-card-height="150">
+                                <div class="card-bottom p-2 px-3">
+                                    <h4 class="color-white">Pizza</h4>
+                                </div>
+                                <div class="card-overlay bg-gradient opacity-80"></div>
+                            </div>
+                        </a>
                     </div>
-
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-
-                    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 0px;">
-                        <ul class="nav navbar-nav navbar-right navbar-login">
-                            <li>
-                                 <a href="mail:service@mioes.app" style="color: rgb(168, 45, 73);"><span class="icon-call"></span>service@mioes.app</a>
-                            </li>
-                        </ul>
+                    <div class="splide__slide">
+                        <a href="#" class="mx-3">
+                            <div class="card card-style me-0 mb-0" style="background-image:url(images/grocery/1m.jpg);" data-card-height="150">
+                                <div class="card-bottom p-2 px-3">
+                                    <h4 class="color-white">Parrillada</h4>
+                                </div>
+                                <div class="card-overlay bg-gradient opacity-80"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="splide__slide">
+                        <a href="#" class="mx-3">
+                            <div class="card card-style me-0 mb-0" style="background-image:url(images/grocery/7m.jpg);" data-card-height="150">
+                                <div class="card-bottom p-2 px-3">
+                                    <h4 class="color-white">Hamburguesas</h4>
+                                </div>
+                                <div class="card-overlay bg-gradient opacity-80"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="splide__slide">
+                        <a href="#" class="mx-3">
+                            <div class="card card-style me-0 mb-0" style="background-image:url(images/grocery/10m.jpg);" data-card-height="150">
+                                <div class="card-bottom p-2 px-3">
+                                    <h4 class="color-white">Sushi</h4>
+                                </div>
+                                <div class="card-overlay bg-gradient opacity-80"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="splide__slide">
+                        <a href="#" class="mx-3">
+                            <div class="card card-style me-0 mb-0" style="background-image:url(images/grocery/2m.jpg);" data-card-height="150">
+                                <div class="card-bottom p-2 px-3">
+                                    <h4 class="color-white">Kebab</h4>
+                                </div>
+                                <div class="card-overlay bg-gradient opacity-80"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="splide__slide">
+                        <a href="#" class="mx-3">
+                            <div class="card card-style me-0 mb-0" style="background-image:url(images/grocery/6m.jpg);" data-card-height="150">
+                                <div class="card-bottom p-2 px-3">
+                                    <h4 class="color-white">Tapas</h4>
+                                </div>
+                                <div class="card-overlay bg-gradient opacity-80"></div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </nav>
-        </header>
-        <div id="footer-bar" class="footer-bar-1">
-            <a style="cursor:pointer;"onclick="window.location = '/'" class="active-nav"><i class="fa fa-home"></i><span>Inicio</span></a>
-            <a style="cursor:pointer;"onclick="window.location = '/scanqr'" id="qr-init" class="qr-init"><i class="fa fa-qrcode"></i><span>Escanear QR</span></a>
-            <a style="cursor:pointer;"onclick="window.location = '/foryou'"><i class="fa fa-store"></i><span>Restaurantes</span></a>
-            <a style="cursor:pointer;"onclick="window.location = '/search'"><i class="fa fa-search"></i><span>Buscar</span></a>
-            <a style="cursor:pointer;"onclick="window.location = '/pro'"><i class="fa fa-gem"></i><span><b>PRO</b></span></a>
+            </div>
         </div>
-                
+
+        <div class="d-flex px-3 mb-2">
+            <div class="align-self-center">
+                <h4 class="mb-0">Restaurante Más Buscado</h4>
+            </div>
+        </div>
+
+        <div class="card card-style" style="background-image:url(images/grocery/5.jpg)" data-card-height="170" onclick="window.location = '<%-bestRestaurant%>' ">
+            <div class="card-top p-3">
+                <a href="#" data-menu="menu-offer" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">TOP 1</a>
+            </div>
+            <div class="card-center">
+                <div class="bg-white d-inline-block px-4 py-3 ms-n3 rounded-m">
+                    <h1 class="ps-2 color-black font-24 font-800 mb-n1">El Cingle</h1>
+                    <p class="ps-2 color-black font-12 mb-0">Vacarisses</p>
+                </div>
+            </div>
+            <div class="card-overlay bg-black opacity-40"></div>
+        </div>
 
 
-        <!-- Home -->
-        <div class="intro intro3" id="loadedPage" data-src="images/landing/3.jpg" style="height: 100vh ;">
-            <div class="container">
-                <div class="row center-content">
-                    <div class="col-md-5 col-sm-6">
-                        <h3 style="line-height: normal !important;">MIOES: Tu carta digital</h3>
-                        <p>Simplemente escanea un código QR.</p>
-                        <div class="space30"></div>
-                        <div class="dual-btn">
-                            <a href="#afterLoading" class="btn btn-lg btn-primary page-scroll">Empezar ahora <span class="fa fa-shopping-basket"></span></a> &nbsp; &nbsp;
+        <div class="d-flex px-3 mb-2">
+            <div class="align-self-center">
+                <h4 class="mb-0">Restaurante Mejor Valorado</h4>
+            </div>
+            <div class="align-self-center ms-auto">
+                <a href="#" class="font-12">View All</a>
+            </div>
+        </div>
+
+        <div class="card card-style" style="background-image:url(images/grocery/4.jpg)" data-card-height="170" onclick="window.location = '<%-bestRating%>' ">
+            <div class="card-top p-3">
+                <a href="#" data-menu="menu-offer" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">TOP 1</a>
+            </div>
+            <div class="card-center">
+                <div class="bg-white d-inline-block px-4 py-3 ms-n3 rounded-m">
+                    <h1 class="ps-2 color-black font-24 font-800 mb-n1">Colmado 1917</h1>
+                    <p class="ps-2 color-black font-12 mb-0">Terrassa</p>
+                </div>
+            </div>
+            <div class="card-overlay bg-black opacity-40"></div>
+        </div>
+
+        <div class="d-flex px-3 mb-2">
+            <div class="align-self-center">
+                <h4 class="mb-0">Plato De La Semana</h4>
+            </div>
+            <div class="align-self-center ms-auto">
+                <a href="#" class="font-12">View All</a>
+            </div>
+        </div>
+
+        <div class="card card-style" style="background-image:url(images/grocery/8.jpg)" data-card-height="170" onclick="window.location = '<%-bestWeekly%>' ">
+            <div class="card-top p-3">
+                <a href="#" data-menu="menu-offer" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">TOP 1</a>
+            </div>
+            <div class="card-center">
+                <div class="bg-white d-inline-block px-4 py-3 ms-n3 rounded-m">
+                    <h1 class="ps-2 color-black font-24 font-800 mb-n1">S3NTIDOS</h1>
+                    <p class="ps-2 color-black font-12 mb-0">Terrassa</p>
+                </div>
+            </div>
+            <div class="card-overlay bg-black opacity-40"></div>
+        </div>
+        <div class="d-flex px-3 mb-2">
+            <div class="align-self-center">
+                <h4 class="mb-0">Restaurante de la semana</h4>
+            </div>
+        </div>
+    
+        <div class="card card-style" style="background-image:url(images/restaurants/evocativa.jpg)" data-card-height="260" onclick="window.location = '<%-weeklyRestaurant%>' ">
+            <div class="card-top no-click p-2 m-1">
+            </div>
+            <div class="card-top p-3">
+                <a href="#" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">Ver ahora</a>
+            </div>
+            <div class="card-bottom m-2">
+                <div class="d-block px-2 py-2 rounded-m">
+                    <div class="pe-3">
+                        <h1 class="color-white font-23 font-800 mb-0">MUN Cuina evocativa</h1>
+                        <p class="color-white font-12 mb-0 line-height-s opacity-70">Cocina moderna</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-overlay bg-gradient opacity-80"></div>
+        </div>
+    
+        <div class="d-flex px-3 mb-2">
+            <div class="align-self-center">
+                <h4 class="mb-0">Noticias de la semana</h4>
+            </div>
+        </div>
+        <div class="content mb-0">
+            <a href="https://www.20minutos.es/gastronomia/restaurantes/cinco-restaurantes-baratos-diez-euros-barcelona-5072044/">
+                <div class="card rounded-sm bg-30" data-card-height="250">
+                    <div class="card-top">
+                        <div class="badge text-uppercase px-3 py-2 bg-dark-dark m-3 rounded-m float-end"><i class=></i>RESTAURANTES</div>                    </div>
+                    <div class="card-bottom">
+                        <h4 class="color-white pb-5 px-3">Cinco restaurantes por menos de 10 € en Barcelona</h4>
+                    </div>
+                    <div class="card-bottom m-3">
+                        <div class="d-flex pt-3">
+                            <div class="align-self-center">
+                                <img src="images/pictures/10s.jpg" width="20" class="rounded-xs me-2">
+                            </div>
+                            <div class="align-self-center">
+                                <span class="font-14 d-block font-500 opacity-50 color-white">20minutos </span>
+                            </div>
+                            <div class="align-self-center ms-auto">
+                                <strong class="font-300 opacity-50 color-white">28-10-2022</strong>
+                            </div>
                         </div>
-
                     </div>
-                    <div class="col-md-7 col-sm-6 no-padding">
-                    </div>
+                    <div class="card-overlay bg-gradient rounded-sm"></div>
                 </div>
-            </div>
-        </div>
-
-    <div class="d-flex px-3 mb-n3 mt-4" id="afterLoading">
-        <div class="align-self-center">
-            <h4 class="mb-0">Restaurantes recomendados</h4>
-        </div>
-    </div>
-
-    <div class="splide double-slider slider-no-dots visible-slider" id="double-slider-1a" style="overflow: hidden;">
-        <div class="splide__track">
-            <div class="splide__list">
-                <div class="splide__slide">
-                    <a href="#" class="mx-3">
-                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/cingle.png);" data-card-height="250">
-                            <div class="card-top p-2">
-                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Relevante</span>
+            </a>
+            <a href="https://www.20minutos.es/gastronomia/restaurantes/bar-cantabria-la-solia-liano-cobra-euros-clientes-no-consuman-nada-5071426/">
+                <div class="card rounded-sm bg-28" data-card-height="250">
+                    <div class="card-top">
+                        <div class="badge text-uppercase px-3 py-2 bg-dark-dark m-3 rounded-m float-end"><i class=></i>RESTAURANTES</div>
+                    </div>
+                    <div class="card-bottom">
+                        <h4 class="color-white pb-5 px-3">Un bar de Cantabria cobra 1,50 € a los clientes que no consuman nada: "Están ocupando un sitio"</h4>
+                    </div>
+                    <div class="card-bottom m-3">
+                        <div class="d-flex pt-3">
+                            <div class="align-self-center">
+                                <img src="images/pictures/10s.jpg" width="20" class="rounded-xs me-2">
                             </div>
-                            <div class="card-bottom p-2 px-3">
-                                <h3 class="color-white line-height-s">El Cingle</h3>
-                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>Pl. Major, 7, Vacarisses</span>
+                            <div class="align-self-center">
+                                <span class="font-14 d-block font-500 opacity-50 color-white">20minutos </span>
                             </div>
-                            <div class="card-overlay bg-gradient"></div>
+                            <div class="align-self-center ms-auto">
+                                <strong class="font-300 opacity-50 color-white">25-10-2022</strong>
+                            </div>
                         </div>
-                    </a>
+                    </div>
+                    <div class="card-overlay bg-gradient rounded-sm"></div>
                 </div>
-                <div class="splide__slide">
-                    <a href="#" class="mx-3">
-                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/melange.png);" data-card-height="250">
-                            <div class="card-top p-2">
-                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Moderno</span>
+            </a>
+            <a href="https://www.larazon.es/medio-ambiente/20220909/zwgg6sqdmnfctoy6qt2r7z2asa.html">
+                <div class="card rounded-sm bg-18" data-card-height="250">
+                    <div class="card-top">
+                        <div class="badge text-uppercase px-3 py-2 bg-dark-dark m-3 rounded-m float-end"><i class=></i>COMIDA VEGANA</div>                    </div>
+                    <div class="card-bottom">
+                        <h4 class="color-white pb-5 px-3">¿Por qué llamarlo carne si no lo es?                        </h4>
+                    </div>
+                    <div class="card-bottom m-3">
+                        <div class="d-flex pt-3">
+                            <div class="align-self-center">
+                                <img src="images/pictures/11s.jpg" width="20" class="rounded-xs me-2">
                             </div>
-                            <div class="card-bottom p-2 px-3">
-                                <h3 class="color-white line-height-s">Mélange</h3>
-                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>C/ de Baix, Terrassa</span>
+                            <div class="align-self-center">
+                                <span class="font-14 d-block font-500 opacity-50 color-white">La Razón</span>
                             </div>
-                            <div class="card-overlay bg-gradient"></div>
+                            <div class="align-self-center ms-auto">
+                                <strong class="font-300 opacity-50 color-white">09-09-2022</strong>
+                            </div>
                         </div>
-                    </a>
+                    </div>
+                    <div class="card-overlay bg-gradient rounded-sm"></div>
                 </div>
-                <div class="splide__slide">
-                    <a href="#" class="mx-3">
-                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/lanova.png);" data-card-height="250">
-                            <div class="card-top p-2">
-                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Muy popular</span>
-                            </div>
-                            <div class="card-bottom p-2 px-3">
-                                <h3 class="color-white line-height-s">La Nova</h3>
-                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>Plaça Nova, Terrassa</span>
-                            </div>
-                            <div class="card-overlay bg-gradient"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="splide__slide">
-                    <a href="#" class="mx-3">
-                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/eclipse.png);" data-card-height="250">
-                            <div class="card-top p-2">
-                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Buenos precios</span>
-                            </div>
-                            <div class="card-bottom p-2 px-3">
-                                <h3 class="color-white line-height-s">L'eclipsse</h3>
-                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>C/ Honorat, Terrassa</span>
-                            </div>
-                            <div class="card-overlay bg-gradient"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="splide__slide">
-                    <a href="#" class="mx-3">
-                        <div class="card card-style me-0 mb-0" style="background-image:url(images/restaurants/labodeguilla.png);" data-card-height="250">
-                            <div class="card-top p-2">
-                                <span class="color-black bg-white px-2 py-1 rounded-xs font-11"><i class="fa fa-fire color-orange-dark pe-2"></i>Espacio acogedor</span>
-                            </div>
-                            <div class="card-bottom p-2 px-3">
-                                <h3 class="color-white line-height-s">La Bodeguilla</h3>
-                                <span class="color-white font-10 opacity-60"><i class="fa fa-map-marker pe-2"></i>C/ Cosidores, Terrassa</span>
-                            </div>
-                            <div class="card-overlay bg-gradient"></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            </a>
         </div>
-    </div>
 
-    <div class="d-flex px-3 mb-2">
-        <div class="align-self-center">
-            <h4 class="mb-0">Restaurante de la semana</h4>
-        </div>
-    </div>
+       
+    <!-- End of Page Content-->
 
-    <div class="card card-style" style="background-image:url(images/restaurants/evocativa.jpg)" data-card-height="260">
-        <div class="card-top no-click p-2 m-1">
-        </div>
-        <div class="card-top p-3">
-            <a href="#" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">Ver ahora</a>
-        </div>
-        <div class="card-bottom m-2">
-            <div class="d-block px-2 py-2 rounded-m">
-                <div class="pe-3">
-                    <h1 class="color-white font-23 font-800 mb-0">MUN Cuina evocativa</h1>
-                    <p class="color-white font-12 mb-0 line-height-s opacity-70">Cocina moderna</p>
-                </div>
-            </div>
-        </div>
-        <div class="card-overlay bg-gradient opacity-80"></div>
-    </div>
-
-
-    <div class="d-flex px-3">
-        <div class="align-self-center">
-            <h4 class="mb-0">Popular en MIOES</h4>
-        </div>
-    </div>
-
-    <div class="content mt-2 mb-n3" style="height:65vh ;">
-        <div class="row">
-            <div class="col-6 pe-2">
-                <a href="#" class="card card-style mx-0 mb-3 types">
-                    <div class="card-top m-2">
-                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">1</span>
-                    </div>
-                    <img src="images/restaurants/asiaticos.png" alt="img" style="height: 100px;" class="img-fluid types-img">
-                    <div class="p-2">
-                        <h4>Comida Asiática</h4>
-                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Sírvete unos fideos, un sushi o un rollito de primavera de calidad!</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 ps-2">
-                <a href="#" class="card card-style mx-0 mb-3 types">
-                    <div class="card-top m-2">
-                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">2</span>
-                    </div>
-                    <img src="images/restaurants/pizzerias.png" alt="img" width="100" style="height: 100px;" class="img-fluid types-img">
-                    <div class="p-2">
-                        <h4>Pizzerias</h4>
-                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Pizzas elaboradas con alimentos de la mejor calidad!</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 pe-2">
-                <a href="#" class="card card-style mx-0 mb-3 types">
-                    <div class="card-top m-2">
-                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">3</span>
-                    </div>
-                    <img src="images/restaurants/tapas.png" alt="img" style="height: 100px;" class="img-fluid types-img">
-                    <div class="p-2">
-                        <h4>Tapas</h4>
-                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">Un lugar para compartir experiencias y comer bien.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 ps-2">
-                <a href="#" class="card card-style mx-0 mb-3 types">
-                    <div class="card-top m-2">
-                        <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">4</span>
-                    </div>
-                    <img src="images/restaurants/mexicanos.png" alt="img" width="100" style="height: 100px;" class="img-fluid types-img">
-                    <div class="p-2">
-                        <h4>Comida Mexicana</h4>
-                        <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Fajitas, burritos, nachos, quesadillas, tacos y el mejor de los guacamoles!</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
 </div>
+
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/mobile-custom.js"></script>
 </body>
-</html>

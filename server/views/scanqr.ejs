@@ -17,36 +17,34 @@
 <script type="text/javascript" src="scripts/scanQr.js"></script>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
+<link rel=icon href=app/icons/icon-72x72.png sizes="72x72" type="image/png">
+<link rel=icon href=app/icons/icon-192x192.png sizes="192x192" type="image/vnd.microsoft.icon">
+<link rel=icon href=app/icons/icon-128x128.png sizes="128x128 512x512 8192x8192 32768x32768">
+<link rel=icon href=app/icons/icon-192x192.png sizes="any" type="image/png">
+
 
 </head>
     
 <body class="theme-light" data-highlight="highlight-red" data-gradient="body-default" onload="scanQr()">
     
-<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+<div id="preloader"><div class="spinner-border color-highlight" role="status"><img id="imgLoaderContainer" src="/app/icons/preloader.gif" width="100px" height="100px"></div></div>
     
 <div id="page">
-    <div id="footer-bar" class="footer-bar-1">
-        <a style="cursor:pointer;"onclick="window.location = '/'"><i class="fa fa-home"></i><span>Inicio</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/scanqr'" id="qr-init" class="qr-init active-nav"><i class="fa fa-qrcode"></i><span>Escanear QR</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/foryou'"><i class="fa fa-store"></i><span>Restaurantes</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/search'"><i class="fa fa-search"></i><span>Buscar</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/pro'"><i class="fa fa-gem"></i><span><b>PRO</b></span></a>
-    </div>
+    <%- include("footer.ejs", {qrCode: true, home: false, restaurants: false}) %>
         
     <div class="page-content">
     
         <div class="card card-style me-0 mb-0" style="position: absolute;
-        top: 400%;
+        top: 120%;
         bottom: 0;
         left: 0;
         right: 0;
-        margin: auto !important;
-        height: 50vh;
-        width: 75vw;">
+        margin-left: auto !important;
+        margin-right: auto !important;
+        height: 70vh;
+        width: 95vw;
+        margin-top: -20% !important;">
             <div id="reader"></div>
-            <div class="card-bottom p-2 px-3">
-                <h3 class="color-white line-height-s text-center">Escanear QR</h3>
-            </div>
             <div class="card-overlay bg-gradient"></div>
         </div>
         <div id="restaurantInfo"></div>

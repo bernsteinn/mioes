@@ -2,6 +2,37 @@
 .fa-rotate-180, .fa-rotate-90, [data-bs-toggle] i {
   transition: all 350ms ease;
 }
+@font-face {
+  font-family: Athletics;
+  font-weight: 900;
+  src: url("https://mioes.app/fonts/Athletics-Black.woff") format("woff")
+}
+@font-face {
+  font-family: Ropers;
+  font-weight: 900;
+  src: url("https://mioes.app/fonts/Ropers-Regular.woff") format("woff")
+}
+@font-face {
+  font-family: Personal;
+  font-weight: 900;
+  src: url("https://mioes.app/fonts/PersonalServices.woff") format("woff")
+}
+.Athletics{
+  font-family: 'Athletics';
+  font-weight: 900;
+}
+
+.Ropers{
+  font-family: 'Ropers';
+  font-weight: 900;
+}
+.Personal{
+  font-family: 'Personal';
+  font-weight: 900;
+}
+.SourceSansPro{
+  font-family: 'Source Sans Pro';
+}
 
 .types{
   height: 220px;
@@ -9,16 +40,21 @@
 /*Typography Settings*/
 body {
   font-size: 13px;
-  font-family: "Roboto", sans-serif !important;
+  font-family: "Roboto", sans-serif;
   line-height: 26px !important;
   color: #6c6c6c !important;
   background-color: #f0f0f0;
+
+
+}
+:root{
+  --option-left: 0px;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: #1f1f1f;
-  font-family: "Source Sans Pro", sans-serif !important;
+  font-family: "Source Sans Pro", sans-serif ;
   margin-bottom: 5px;
   letter-spacing: -0.3px;
 }
@@ -81,7 +117,6 @@ body {
 .page-content {
   overflow-x: hidden;
   transition: all 350ms ease;
-  z-index: 90;
   padding-bottom: 80px;
   padding-bottom: calc(80px + (constant(safe-area-inset-bottom))*1.1);
   padding-bottom: calc(80px + (env(safe-area-inset-bottom))*1.1);
@@ -484,8 +519,8 @@ body {
   background-color: rgba(249, 249, 249, 0.98);
   box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.06);
   min-height: 60px;
-  height: calc(62px + (constant(safe-area-inset-bottom))*1.1);
-  height: calc(62px + (env(safe-area-inset-bottom))*1.1);
+  height: calc(64px + (constant(safe-area-inset-bottom))*1.1);
+  height: calc(64px + (env(safe-area-inset-bottom))*1.1);
   display: flex;
   text-align: center;
 }
@@ -494,6 +529,9 @@ body {
   padding-top: 12px;
   position: relative;
   flex: 1 1 auto;
+  margin:auto;
+  width: 130px;
+  height: 100px;
 }
 #footer-bar a span {
   position: relative;
@@ -506,9 +544,60 @@ body {
   font-family: "Roboto", sans-serif !important;
 }
 #footer-bar a i {
-  font-size: 18px;
+  font-size: 23px;
   position: relative;
   z-index: 2;
+}
+.profileImg{
+  object-fit: cover;
+}
+.activeOption{
+  color: black;
+  font-weight: 600;
+}
+
+.activeOption::after {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  padding-top: 3px;
+  border-bottom: 2px solid black;
+  margin-left: -9%;
+  position: relative;
+  top: 10px;
+  left: var(--option-left);
+}
+.instagram-heart {   
+  width: 144px;
+  height: 140px;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: url("/images/social/star.png") no-repeat center/contain;
+  opacity: 1;
+  transform: scale(0);
+}
+
+.instagram-heart {
+  animation-duration: 800ms;
+  animation-name: like-heart-animation;
+  animation-timing-function: ease-in-out;
+}
+.categoryTitle{
+  margin-bottom: 10%;
+  margin-top: -1% !important;
+}
+@keyframes like-heart-animation{ 
+  0% { transform:scale(0); }
+  15% { transform:scale(1.2); }
+  30% { transform:scale(.95); }
+  45%,
+  80% {  transform:scale(1); }
+  100% { transform:scale(1); }
+
 }
 #footer-bar .badge {
   font-style: normal;
@@ -558,7 +647,6 @@ body {
 .footer-bar-4 i {
   padding-top: 10px;
 }
-
 .footer-bar-5 .active-nav strong {
   position: absolute;
   width: 50px;
@@ -1373,11 +1461,9 @@ img.mx-auto {
 }
 #preloader .spinner-border {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  margin-left: -15px;
-}
-
+  margin-left: -12%;}
 .preloader-hide {
   opacity: 0;
   pointer-events: none;
@@ -1387,7 +1473,15 @@ img.mx-auto {
 .theme-light #preloader {
   background-color: #FFF;
 }
-
+.socialHandle{
+  margin: 1.5% 0 0 -10%;
+  text-decoration: none;
+  color: black;
+}
+h1 span{
+  background:#fff; 
+  padding:0 10px; 
+}
 .theme-dark #preloader {
   background-color: #0f1117;
 }
@@ -3088,26 +3182,7 @@ code {
   outline: 0px !important;
 }
 
-input:hover,
-input:focus,
-input:active,
-select:hover,
-select:focus,
-select:active,
-select option,
-textarea:hover,
-textarea:focus,
-textarea:active,
-.btn:hover,
-.btn:focus,
-.btn:active,
-button:hover,
-button:focus,
-button:active {
-  outline: none;
-  box-shadow: none !important;
-  -webkit-appearance: none !important;
-}
+
 
 .theme-light input, select, textarea {
   border-color: rgba(0, 0, 0, 0.08) !important;

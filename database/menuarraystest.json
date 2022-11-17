@@ -1,7 +1,11 @@
-{"menu":{
+{"menu": {
     "categories": [
-        {"name":"Hamburguesas", "id": 69},
-        {"name":"Entrantes", "id": 25}
+      {"name": "Hamburguesas", "products": [
+        {"name": "Hamburguesa grande", "price": 1.50}
+      ]},
+      {"name": "Entrantes", "products": [
+        {"name": "Mejilloes", "price": 1.99}
+      ]}
     ]
-}
+  }
 }

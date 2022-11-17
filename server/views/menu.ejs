@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <script src="https://cdn.jsdelivr.net/npm/translate@1/translate.min.js"></script>
+    <script src="/scripts/translateMenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<link rel="stylesheet" type="text/css" href="/styles/translatedMenu.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/fonts/css/fontawesome-all.min.css">
+<link rel=icon href=app/icons/icon-72x72.png sizes="72x72" type="image/png">
+<link rel=icon href=app/icons/icon-192x192.png sizes="192x192" type="image/vnd.microsoft.icon">
+<link rel=icon href=app/icons/icon-128x128.png sizes="128x128 512x512 8192x8192 32768x32768">
+<link rel=icon href=app/icons/icon-192x192.png sizes="any" type="image/png">
+
+</head>
+<body>
+    <div id="savedMenu" class="menuPreview">
+        <h1 style="text-align: center;padding-bottom: 8%;" class="<%= font%>" id="menuTitle"><%= titleMenu%><br></h1>
+        <div id="contentContainer"></div>
+    </div>
+    <p hidden id="menuDataElement"><%= JSON.stringify(menu)%></p>
+    <script>
+        var menuData  = document.getElementById("menuDataElement").innerText
+        var color = '<%-color%>'
+        var containerFull = document.getElementById("savedMenu")
+        containerFull.hidden = true
+        var title = `<%-titleMenu%>`
+        var menu = JSON.parse(menuData)
+        var container = document.getElementById("contentContainer")
+        menu.forEach(category => {
+            const categoryElement = document.createElement("div")
+            const containerProducts = document.createElement("div")
+            containerProducts.classList.add("card")
+            containerProducts.classList.add("card-style")
+            containerProducts.style.paddingTop = "120px"
+            containerProducts.style.width = "85vw"
+            categoryElement.className = "content"
+            const header = `<img  style="margin-bottom:-120px" id="categoryImg" src="${category.img}" class="mx-auto shadow-xl rounded-circle over-card" width="300">`       
+            
+            categoryElement.innerHTML = `<h1 class="text-center font-36 mt-3 categoryTitle">${category.name}</h1>`
+        var container = document.getElementById("contentContainer")
+        container.innerHTML = container.innerHTML + header
+        category.products.forEach((product) => {
+            const productElement = `                <div class="d-flex mb-3 productElement">
+                    <div class="align-self-center w-100">
+                        <h1 class="mb-n2 font-16 font-500 opacity-70 drawLine"><span>${product.name}</span></h1>
+                    </div>
+                    <div class="align-self-center ms-auto">
+                        <h1 class="font-16 mb-0 font-500 opacity-70">${product.price}€</h1>
+                    </div>
+`
+                categoryElement.innerHTML = categoryElement.innerHTML + productElement
+        })
+        containerProducts.append(categoryElement)
+        container.append(containerProducts)
+    });
+        
+        //containerFull.style.background = color
+        document.body.style.background = color
+        if(sessionStorage.getItem("reloaded") == "true"){
+            sessionStorage.setItem("reloaded", false)
+            containerFull.hidden = false
+        }
+        else{
+            sessionStorage.setItem("reloaded", true)
+            window.location.reload()
+        }
+    </script>
+</body>
+</html>

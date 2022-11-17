@@ -16,10 +16,24 @@ import { toast, ToastContainer } from 'react-toastify';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
+    overflow: 'hidden'
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
   },
+  '& .MuiPaper-root' : {
+    borderRadius: '15px'
+  },
+  '& .MuiInputBase-root': {
+    borderRadius: '15px',
+  },
+  '& #outlined-basic' :{
+    height: '100% !important'
+  },
+  '& #outlined-basic2' :{
+    height: '100% !important'
+  }
+
 }));
 
 const BootstrapDialogTitle = (props) => {
@@ -102,7 +116,7 @@ export default function CustomizedDialogs() {
         body: formData
     }).then(response => response.json()).then((data) => {
         if(data.status != true){
-            alert("Algo ha ido mal, vuelve a intentarlo más tarde.")
+            toast.error(data.err)
             return
         }
         localStorage.setItem("hasToCompleteSetUp", false)
@@ -149,8 +163,8 @@ export default function CustomizedDialogs() {
           <Typography gutterBottom>
             Para poder usar MIOES es necesario que acabes de configurar tu cuenta.
           </Typography>
-          <DialogContent dividers>
-          <TextField id="outlined-basic" label="El nombre de tu restaurante" variant="outlined" fullWidth onChange={onTypeName} value={restaurantName}/>
+          <DialogContent>
+          <TextField style={{marginBottom: '15px', borderRadius: '15px'}} id="outlined-basic" label="El nombre de tu restaurante" variant="outlined" fullWidth onChange={onTypeName} value={restaurantName}/>
           <TextField id="outlined-basic2" label="La dirección de tu restaurante" variant="outlined" fullWidth onChange={onTypeRestaurant} value={restaurantAddr}/>
           <div style={{padding: '10px'}}>
           <input type="file" id="actualBtn" onChange={onSelectFile} hidden/>
@@ -162,7 +176,7 @@ export default function CustomizedDialogs() {
           </DialogContent>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleSubmit}>
+          <Button onClick={handleSubmit}>
             Confirmar
           </Button>
         </DialogActions>

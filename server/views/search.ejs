@@ -28,26 +28,21 @@
 <div id="page">
 
     <div class="header header-fixed header-logo-center header-auto-show">
-        <a href="index.html" class="header-title">MIOES</a>
-        <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
-        <a href="#" data-toggle-theme class="header-icon header-icon-4"><i class="fas fa-lightbulb"></i></a>
-        <a href="#" data-menu="menu-cart" class="header-icon header-icon-3"><i class="fas fa-shopping-bag"></i></a>
+        <a href="/" class="header-title">MIOES</a>
     </div>
-
     <div id="footer-bar" class="footer-bar-1">
         <a style="cursor:pointer;"onclick="window.location = '/'"><i class="fa fa-home"></i><span>Inicio</span></a>
         <a style="cursor:pointer;"onclick="window.location = '/scanqr'" id="qr-init"><i class="fa fa-qrcode"></i><span>Escanear QR</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/foryou'"><i class="fa fa-store"></i><span>Restaurantes</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/search'" class="qr-init active-nav"><i class="fa fa-search"></i><span>Buscar</span></a>
-        <a style="cursor:pointer;"onclick="window.location = '/pro'"><i class="fa fa-gem"></i><span><b>PRO</b></span></a>
+        <a style="cursor:pointer;"onclick="window.location = '/foryou'" ><i class="fa fa-store"></i><span>Restaurantes</span></a>
+        <a style="cursor:pointer;"onclick="window.location = '/pro'" ><i class="fa fa-gem"></i><span>Pro</span></a>
+        <a style="cursor:pointer;"onclick="window.location = '/help'"><i class="fa fa-comments"></i><span>Ayuda</span></a>
     </div>
-
     <div class="page-content">
 
         <div class="content notch-clear">
             <div class="d-flex pt-2">
                 <div class="align-self-center me-auto">
-                    <h1 class="mt-n2 font-27">Buscar restaurantes</h1>
+                    <h1 class="mt-n2 font-27">¡Bienvenido a MIOES!</h1>
                 </div>
             </div>
         </div>
@@ -219,6 +214,93 @@
                 </div>
             </div>
             <div class="card-overlay bg-black opacity-40"></div>
+        </div>
+        <div class="d-flex px-3 mb-n3 mt-4" id="afterLoading">
+            <div class="align-self-center">
+                <h4 class="mb-0">Restaurantes recomendados</h4>
+            </div>
+        </div>    
+        <div class="d-flex px-3 mb-2">
+            <div class="align-self-center">
+                <h4 class="mb-0">Restaurante de la semana</h4>
+            </div>
+        </div>
+    
+        <div class="card card-style" style="background-image:url(images/restaurants/evocativa.jpg)" data-card-height="260">
+            <div class="card-top no-click p-2 m-1">
+            </div>
+            <div class="card-top p-3">
+                <a href="#" class="btn btn-s bg-white color-black rounded-s scale-box font-700 text-uppercase float-end">Ver ahora</a>
+            </div>
+            <div class="card-bottom m-2">
+                <div class="d-block px-2 py-2 rounded-m">
+                    <div class="pe-3">
+                        <h1 class="color-white font-23 font-800 mb-0">MUN Cuina evocativa</h1>
+                        <p class="color-white font-12 mb-0 line-height-s opacity-70">Cocina moderna</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-overlay bg-gradient opacity-80"></div>
+        </div>
+    
+    
+        <div class="d-flex px-3">
+            <div class="align-self-center">
+                <h4 class="mb-0">Popular en MIOES</h4>
+            </div>
+        </div>
+    
+        <div class="content mt-2 mb-n3" style="height:65vh ;">
+            <div class="row">
+                <div class="col-6 pe-2">
+                    <a href="#" class="card card-style mx-0 mb-3 types">
+                        <div class="card-top m-2">
+                            <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">1</span>
+                        </div>
+                        <img src="images/restaurants/asiaticos.png" alt="img" style="height: 100px;" class="img-fluid types-img">
+                        <div class="p-2">
+                            <h4>Comida Asiática</h4>
+                            <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Sírvete unos fideos, un sushi o un rollito de primavera de calidad!</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 ps-2">
+                    <a href="#" class="card card-style mx-0 mb-3 types">
+                        <div class="card-top m-2">
+                            <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">2</span>
+                        </div>
+                        <img src="images/restaurants/pizzerias.png" alt="img" width="100" style="height: 100px;" class="img-fluid types-img">
+                        <div class="p-2">
+                            <h4>Pizzerias</h4>
+                            <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Pizzas elaboradas con alimentos de la mejor calidad!</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 pe-2">
+                    <a href="#" class="card card-style mx-0 mb-3 types">
+                        <div class="card-top m-2">
+                            <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">3</span>
+                        </div>
+                        <img src="images/restaurants/tapas.png" alt="img" style="height: 100px;" class="img-fluid types-img">
+                        <div class="p-2">
+                            <h4>Tapas</h4>
+                            <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">Un lugar para compartir experiencias y comer bien.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 ps-2">
+                    <a href="#" class="card card-style mx-0 mb-3 types">
+                        <div class="card-top m-2">
+                            <span class="bg-white color-black font-11 px-2 py-1 font-700 rounded-xs shadow-xxl">4</span>
+                        </div>
+                        <img src="images/restaurants/mexicanos.png" alt="img" width="100" style="height: 100px;" class="img-fluid types-img">
+                        <div class="p-2">
+                            <h4>Comida Mexicana</h4>
+                            <p class="mb-0 mt-n1 opacity-70 line-height-s pt-1 font-11">¡Fajitas, burritos, nachos, quesadillas, tacos y el mejor de los guacamoles!</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
        
     <!-- End of Page Content-->

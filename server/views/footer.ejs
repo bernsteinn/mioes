@@ -1,0 +1,30 @@
+<% if(qrCode){ %> 
+<div id="footer-bar" class="footer-bar-1">
+    <a style="cursor:pointer; margin-left: 5%;"onclick="window.location = '/'"><i class="fa fa-home"></i><span>Inicio</span></a>
+    <a style="cursor:pointer;"onclick="window.location = '/foryou'"><i class="fa fa-store"></i><span>Restaurantes</span></a>
+    <a style="cursor:pointer; margin-right: 5%;"onclick="window.location = '/scanqr'" class="qr-init active-nav" id="qr-init"><i class="fa fa-qrcode"></i><span>QR</span></a>
+</div>
+<% } %> 
+<% if(home){ %> 
+    <div id="footer-bar" class="footer-bar-1">
+        <a style="cursor:pointer; margin-left: 5%;"onclick="window.location = '/'" class="active-nav"><i class="fa fa-home"></i><span>Inicio</span></a>
+        <a style="cursor:pointer;"onclick="window.location = '/foryou'"><i class="fa fa-store"></i><span>Restaurantes</span></a>
+        <a style="cursor:pointer; margin-right: 5%;"onclick="window.location = '/scanqr'" id="qr-init"><i class="fa fa-qrcode"></i><span>QR</span></a>
+    </div>
+<% } %> 
+<% if(restaurants){ %> 
+    <div id="footer-bar" class="footer-bar-1">
+        <a style="cursor:pointer; margin-left: 5%;"onclick="window.location = '/'"><i class="fa fa-home"></i><span>Inicio</span></a>
+        <a style="cursor:pointer;"onclick="window.location = '/foryou'" class="active-nav"><i class="fa fa-store"></i><span>Restaurantes</span></a>
+        <a style="cursor:pointer; margin-right: 5%;"onclick="window.location = '/scanqr'" id="qr-init"><i class="fa fa-qrcode"></i><span>QR</span></a>
+    </div>
+<% } %> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P01S0V3EW8%22%3E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-P01S0V3EW8');
+    </script>
+    

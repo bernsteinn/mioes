@@ -53,10 +53,10 @@ const io = new Server(httpServer,
       maxAge: 12 * 60 * 60 * 1000,
       httpOnly: true,
     }})
+
+var socketId
 io.on("connection", (socket) => {
-  socket.on("updateMe", () => {
-    socket.emit("update", {liveJobs:  1})
-  })
+  socketId = socket.id
 });
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -155,6 +155,7 @@ app.post("/users/login", (req, res) => {
     var dbo = db.db("mioes");
     dbo.collection("appUsers").find({user: username}).toArray((err, result) =>{
       if (err){res.json({status:false, err:"Algo ha ido mal. Vuelvelo a intentar" + err}); return}
+      try{
       if(bcrypt.compareSync(password, result[0].password)){
         req.session.user = true
         req.session.username = username
@@ -162,6 +163,9 @@ app.post("/users/login", (req, res) => {
         db.close();  
         return
       }
+    }catch(e){
+      res.json({status:false})
+    }
       res.json({status:false})
     });
   })
@@ -359,7 +363,7 @@ app.get("/carta/:restaurant", (req, res) => {
           var translating = new Promise((resolve, reject) => {
             result[0].menu.forEach(async (category, index, array) => {
               category.products.forEach(async (product) => {
-                var productTranslated = {name: await translate(product.name, {from: 'es', to: 'cat'}), price: product.price, img: product.img, productId: product.productId}
+                var productTranslated = {name: await translate(product.name, {from: 'es', to: 'cat'}), price: product.price, img: product.img, productId: product.productId,additives: product.additives, additivesEnabled: product.additivesEnabled}
                 translatedProducts.push(productTranslated)
                 await delay(300);
               })
@@ -385,7 +389,7 @@ app.get("/carta/:restaurant", (req, res) => {
           var translating = new Promise((resolve, reject) => {
             result[0].menu.forEach(async (category, index, array) => {
               category.products.forEach(async (product) => {
-                var productTranslated = {name: await translate(product.name, {from: 'es', to: 'en'}), price: product.price, img: product.img, productId: product.productId}
+                var productTranslated = {name: await translate(product.name, {from: 'es', to: 'en'}), price: product.price, img: product.img, productId: product.productId, additives: product.additives, additivesEnabled: product.additivesEnabled}
                 translatedProducts.push(productTranslated)
                 await delay(300);
               })
@@ -411,7 +415,7 @@ app.get("/carta/:restaurant", (req, res) => {
           var translating = new Promise((resolve, reject) => {
             result[0].menu.forEach(async (category, index, array) => {
               category.products.forEach(async (product) => {
-                var productTranslated = {name: await translate(product.name, {from: 'es', to: 'fr'}), price: product.price, img: product.img, productId: product.productId}
+                var productTranslated = {name: await translate(product.name, {from: 'es', to: 'fr'}), price: product.price, img: product.img, productId: product.productId, additives: product.additives, additivesEnabled: product.additivesEnabled}
                 translatedProducts.push(productTranslated)
                 await delay(300);
               })
@@ -750,11 +754,40 @@ app.get("/restaurant", (req, res) => {
       res.json({status:false})
     }
     var name = String(req.body.name.toString())
+    var dataUpdated;
     const query = {_id: ObjectId(req.session.restaurantId.toString()), "menu.name": req.body.category}
     MongoClient.connect(url, function(err, db){
       if(err){res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde."}); return}
       var dbo = db.db("mioes")
-      dbo.collection("adminUsers").updateOne(query, {$push:{"menu.$.products":{name: name, price: req.body.price, img: completePath, productId: makeid(10)}}}, function(err, result){
+      try{
+      if(JSON.parse(req.body.additivesPresent) == true){
+      const additives = req.body.additives
+      const listOfExistingAdditives = ["Gluten", "Crustáceos", "Huevos", "Pescado", "Cacahuetes", "Soja", "Lácteos", "Frutos con cáscara", "Apio", "Mostaza", "Sésamo", "Sulfitos", "Altramuces", "Moluscos"]
+      const additivesArray = []
+      JSON.parse(additives).forEach((additive) => {
+        if(typeof additive.presence == "boolean" && typeof additive.name == "string"){
+          listOfExistingAdditives.every((type) => {
+            if(type == additive.name){
+              const additiveData = {name: additive.name, present: additive.presence}
+              additivesArray.push(additiveData)
+              return false
+            }
+            else{
+              return true
+            }
+          })
+        }
+      })
+      dataUpdated = {name: name, price: req.body.price, img: completePath, productId: makeid(10), additives: true, additivesEnabled:additivesArray}
+    }
+    else{
+      dataUpdated = {name: name, price: req.body.price, img: completePath, productId: makeid(10), additives: false}
+    }
+  }catch(e){
+    res.json({status:false})
+    return
+  }
+      dbo.collection("adminUsers").updateOne(query, {$push:{"menu.$.products":dataUpdated}}, function(err, result){
         if(err){res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde."});db.close();return}
         if(result.acknowledged == true){
           res.json({status:true})
@@ -1060,6 +1093,90 @@ app.post("/admin/restaurant" ,(req, res) => {
   
 
   })
+  app.post("/productdata", (req,res) => {
+    if(req.session.loggedin != true){res.json({status:false, err: "Inicia sesión para hacer esto"}); return}
+    const query = {_id: ObjectId(req.session.restaurantId.toString()), "menu.name": category}
+    if(req.body.additives == true){
+    MongoClient.connect(url, function(err, db){
+      if(err){res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde (26)"}); return}
+      var dbo = db.db("mioes")
+      dbo.collection("adminUsers").find(query).toArray((err, product) => {
+        if(err){res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde."});db.close();return}
+        const newName = product[0].name
+        const newPrice = product[0].price
+        const img = product[0].img
+        const productId = product[0].productId
+        dbo.collection("adminUsers").updateOne(query, {$pull:{"menu.$.products":{name: name}}}, function(err, result){
+          if(err){res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde."});db.close();return}
+          if(result.modifiedCount == 1){
+            const additives = req.body.additives
+            const listOfExistingAdditives = ["gluten", "crustaceos", "huevos", "pescado", "cacahuetes", "soja", "lácteos", "frutos_cascara", "apio", "mostaza", "sesamo", "sulfitos", "altramuces", "moluscos"]
+            const additivesArray = []
+            additives.forEach((additive) => {
+              if(typeof additive.presence == "boolean" && typeof additive.name == "string"){
+                listOfExistingAdditives.every((type) => {
+                  if(type == additive.name){
+                    const additiveData = {name: additive.name, present: additive.presence}
+                    additivesArray.push(additiveData)
+                    return false
+                  }
+                  else{
+                    return true
+                  }
+                })
+              }
+            })
+            const dataUpdated = {name: newName, price: newPrice, img: img, productId: productId, additives: true, additivesEnabled:additivesArray}
+            dbo.collection("adminUsers").updateOne(query, {$push:{"menu.$.products":dataUpdated}}, function(err, result){
+              if(err){res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde (20)" + err});db.close();return}
+              if(result.acknowledged == true){
+                res.json({status:true})
+                db.close()
+                return
+              }
+              res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde"})
+              db.close()
+            })
+            return
+          }
+          res.json({status:false, err: "Algo ha ido mal, porfavor intentalo más tarde"})
+          db.close()
+        }) 
+      }) 
+    })
+    return
+  }
+
+
+  })
+  app.post("/admin/changepassword", (req,res) => {
+    var oldPass = req.body.oldPassword.toString()
+    var newPass = req.body.newPassword.toString()
+    const query = {_id: ObjectId(req.session.restaurantId.toString())}
+    MongoClient.connect(url, (err, db) => {
+      if (err) {res.json({status:false, err:"Algo ha ido mal, porfavor, vuelve a iniciar sesión en unos segundos."}); return}
+      var dbo = db.db("mioes")
+      dbo.collection("adminUsers").find(query).toArray(function(err, result){
+        if (err) {res.json({status:false, err:"Algo ha ido mal, porfavor, vuelve a iniciar sesión en unos segundos."}); return}
+        if(result.length > 0){
+          if(!bcrypt.compareSync(oldPass, result[0].password)){
+            res.json({status:false, err: {msg:"Contraseña incorrecta", code: 1}})
+            return
+          }
+          dbo.collection("adminUsers").updateOne(query, {$set: {password: bcrypt.hashSync(newPass,)}}, function(err, resultz){
+            console.log(err)
+            if (err) {res.json({status:false, err:"Algo ha ido mal, porfavor, vuelve a iniciar sesión en unos segundos."}); return}
+            if(resultz.acknowledged){
+              res.json({status:true})
+              return
+            }
+          })
+          return
+        }
+        res.json({status:false, err:{msg:"Usuario no existente", code: 2}})
+      })
+    })
+  })
   app.post("/newpost", async (req, res) => {  
     if(!req.session.loggedin){
       res.json({status:false, err:"Porfavor inicia sesión para hacer esto"})
@@ -1140,17 +1257,17 @@ app.post("/admin/restaurant" ,(req, res) => {
                     dbo.collection("posts").insertOne(postCreated, function(err, result) {
                       if (err){res.json({status:false, err:"Algo no ha ido bien."}); return}
                       if(result.acknowledged == true){
-                        io.emit("update", {progress: 100});
+                        io.to(socketId).emit("update", {progress: 100});
                       }
                       else{
-                        io.emit("update", {progress: 0, status: false});
+                        io.to(socketId).emit("update", {progress: 0, status: false});
                       }
                       db.close()
                     })
                   })
                 })
       
-            }).catch(err => io.emit("update", {progress: 0, status: false}))
+            }).catch(err => io.to(socketId).emit("update", {progress: 0, status: false}))
           } catch(err){
             res.json({status:false})
           }
@@ -1196,7 +1313,7 @@ app.post("/admin/restaurant" ,(req, res) => {
   }
   })
 app.get("/*", (req, res) => {
-    res.redirect(404, "/")
+    res.redirect("/")
 })
 
 httpServer.listen(80)

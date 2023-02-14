@@ -17,16 +17,9 @@ export default function Dashboard(){
     const [lastUpdate, setLastUpdate] = useState(null)
     const [loading, setLoading] = useState(true)
     const [liveJobs, setLiveJobs] = useState(0)
-    useEffect(() => {
-        socket.emit("updateMe")
-        }, [])
-    socket.on("update", (jobs) => {
-        setLiveJobs(jobs.liveJobs)
-        setLoading(false)
-    })
     return(<>
 <SocketContext.Provider value={socket}>
-    {loading == false ? <Sidebar element={
+    <Sidebar element={
         <Swiper
             style={{maxWidth: '420px'}}
             className="swiper-container"
@@ -93,7 +86,7 @@ export default function Dashboard(){
         </div>
         <div className="swiper-pagination" />
       </Swiper>
-    }></Sidebar>:null}
+    }></Sidebar>
 </SocketContext.Provider>
     </>)
 }

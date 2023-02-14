@@ -80,18 +80,18 @@ const Sidebar = ({element}) => {
     const file = document.getElementById("postVid").files[0]
     const checkImg = () => {try{if(selectedFile['type'].includes('video')) return true}catch{return false}}
     if(!checkImg() || selectedFile == undefined){
-        document.getElementById("img-error").style.color = "red"
-        document.getElementById("img-error").innerText = "Porfavor, sube un video."
+        document.getElementById("vid-error").style.color = "red"
+        document.getElementById("vid-error").innerText = "Porfavor, sube un video."
         return
     }
     if(!['video/mp4', 'video/mpg', 'video/avi', 'video/m4v'].includes(file.type)){
-        document.getElementById("img-error").style.color = "red"
-        document.getElementById("img-error").innerText = "Porfavor, sube un video en formato mp4."
+        document.getElementById("vid-error").style.color = "red"
+        document.getElementById("vid-error").innerText = "Porfavor, sube un video en formato mp4."
         return;
     }
     if(file.size / 1024 / 1024 > 50) {
-      document.getElementById("img-error").style.color = "red"
-      document.getElementById("img-error").innerText = "El video no puede pesar más de 50MB."
+      document.getElementById("vid-error").style.color = "red"
+      document.getElementById("vid-error").innerText = "El video no puede pesar más de 50MB."
       return;
     }
     form.append('postVideo', file)
@@ -139,6 +139,9 @@ setSelectedFile(e.target.files[0])
 
 }
   useEffect(() => {
+    document.querySelector(".logout").addEventListener("click", () => {
+      window.location = "/admin/session/logout"
+    })
     if (localStorage.getItem("hasToCompleteSetUp") == "true"){setupIsPending(true)}
   fetch("/session", {credentials: 'include'}).then(response => response.json()).then((data) => {
     if(data.loggedin != true){
@@ -373,12 +376,6 @@ setSelectedFile(e.target.files[0])
         <button className="add-btn" title="Adquirir pegatinas" style={{borderRadius: '10px', width: '150px', fontWeight: '750'}} onClick={() => {window.open("https://forms.gle/njVBVjHSThnmgGxG7",'_blank').focus();}}>
         Adquirir pegatinas
         </button>
-          <button className="mode-switch" title="Switch Theme">
-            <svg className="moon" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} width={24} height={24} viewBox="0 0 24 24">
-              <defs />
-              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-            </svg>
-          </button>
           <button className="add-btn" title="New post" data-menu="menu-modal-newpost">
           <i class="fas fa-plus"></i>
           </button>
@@ -390,6 +387,9 @@ setSelectedFile(e.target.files[0])
           <button className="profile-btn">
             <img src={img} />
             <span>{user}</span>
+          </button>
+          <button className="logout" title="Cerrar sesión">
+            <i class="fas fa-sign-out"></i>
           </button>
         </div>
         <button className="messages-btn">

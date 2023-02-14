@@ -19,6 +19,7 @@ export default function ManageMenu(){
   const [titleMenu, setTitle] = useState("Previsualización")
   const [colorUpdated, setUpdatedColor] = useState()
   const [font, setFont] = useState("SourceSansPro")
+  var present;
     useEffect(() => {
       const goBackButton = document.createElement("span")
       goBackButton.classList.add("fas")
@@ -75,7 +76,7 @@ export default function ManageMenu(){
                   category.products.forEach((product) => {
                           categoryElement.innerHTML = categoryElement.innerHTML + `<div class="d-flex mb-3">
                           <div class="align-self-center w-100">
-                              <h1 class="mb-n2 font-16 font-500 opacity-70" id="editProduct" data-price="${product.price}€" data-id="${product.productId}" data-category="${category.name}"data-img="${product.img}" data-menu="menu-modal-cart-edit">${product.name}</h1>
+                              <h1 class="mb-n2 font-16 font-500 opacity-70" id="editProduct" data-al="${JSON.stringify(product.allergens)}" data-al-list="${product.listOfAllergies}" data-price="${product.price}€" data-id="${product.productId}" data-category="${category.name}"data-img="${product.img}" data-menu="menu-modal-cart-edit">${product.name}</h1>
                           </div>
                           <div class="align-self-center ms-auto">
                               <h1 class="font-16 mb-0 font-500 opacity-70 ">${product.price}€</h1>
@@ -297,6 +298,7 @@ export default function ManageMenu(){
       var newImage = selectedFile
       var newPrice = newPrice.replace("€", "").toString()
       const data = new FormData()
+      data.append("additives", present)
       data.append("title", newTitle)
       data.append("price", newPrice)
       data.append("img", newImage)
@@ -337,8 +339,30 @@ export default function ManageMenu(){
           return
       }  
       const formData = new FormData();
+      var selectorAllergiesUnchecked = document.querySelectorAll(".allergie")
+      var additivesListToSend = []
+      selectorAllergiesUnchecked.forEach((unchecked) => {
+        if(unchecked.checked){
+          var aditive = {presence: true, name: unchecked.value}
+          additivesListToSend.push(aditive)  
+        }
+        else{
+          var aditive = {presence: false, name: unchecked.value}
+          additivesListToSend.push(aditive)  
+        }
+      })
+      if(document.getElementById("allergensOn").checked){
+        var present = true
+      }
+      else{
+        var present = false
+      }
       var priceOfProduct = newProductPrice.replace(/\D/g,'');
       formData.append("category", document.getElementById("categoriesList").value)
+      formData.append("additivesPresent", present)
+      if(present){
+        formData.append("additives", JSON.stringify(additivesListToSend))
+      }
       formData.append("name", newProductName)
       formData.append("price", parseFloat(priceOfProduct))
       formData.append("img", selectedFile)
@@ -358,6 +382,38 @@ export default function ManageMenu(){
     }
     setSelectedFile(e.target.files[0])
 
+}
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+const allergens = (ev) => {
+  var selectorElement = document.getElementById("selectorAllergies")
+  if(ev.target.checked){
+    const listOfAllergies = ["Gluten", "Crustáceos", "Huevos", "Pescado", "Cacahuetes", "Soja", "Lácteos", "Frutos con cáscara", "Apio", "Mostaza", "Sésamo", "Sulfitos", "Altramuces", "Moluscos"]
+    listOfAllergies.forEach((allergie) => {
+      var id = makeid(5)
+      const inputContainer = document.createElement("label")
+      const input = document.createElement("input")
+      input.type = "checkbox" 
+      input.id = id
+      input.className = "allergie"
+      input.value = allergie
+      inputContainer.innerText = allergie + " "
+      inputContainer.htmlFor = id
+      inputContainer.append(input)
+      inputContainer.style.margin = "2%"
+      selectorElement.append(inputContainer)
+    })
+  }
+  else{
+    selectorElement.innerHTML = ""
+  }
 }
     return(<>
     <Sidebar element = {   
@@ -381,6 +437,7 @@ export default function ManageMenu(){
         <div className="list-group list-custom-small">
           <a href="#" data-menu="menu-modal-reservation"><i className="fa fa-calendar color-blue-dark" /><span>Nueva categoría</span><i className="fa fa-angle-right" /></a>
           <a href="#" data-menu="menu-modal-cart"><i className="fa fa-shopping-bag color-green-dark" /><span>Nuevo producto</span><i className="fa fa-angle-right" /></a>
+          <a href="#" data-menu="menu-modal-allergies"><i className="fa fa-allergies color-red-dark" /><span>Alérgenos</span><i className="fa fa-angle-right" /></a>
           <p style={{marginBottom: "0 !important", textAlign: 'center'}}>Selecciona un color de fondo para tu menú</p>
           <HexColorPicker className="colorSelector" id="colorPicker" color={menuColor} onChange={setUpdatedColor}/>
           <p style={{marginTop: "-5%", textAlign: "center"}}>Selecciona una tipografía para el titulo de tu menú</p>
@@ -414,7 +471,7 @@ export default function ManageMenu(){
       <a href="javascript:void(0);" onClick={newCategory} id="newCategoryButton" className="btn btn-m btn-full rounded-sm shadow-xl text-uppercase font-700 bg-red-dark mt-4 mb-3 close-menu">Crear categoría</a>
     </div>
   </div>
-  <div id="menu-modal-cart" className="menu menu-box-modal menu-box-detached">
+  <div id="menu-modal-cart" className="menu menu-box-modal menu-box-detached" style={{maxHeight: "100vh"}}>
     <div className="menu-title"><h1>Nuevo producto</h1><a href="#" className="close-menu"><i className="fa fa-times" /></a></div>
     <div className="divider divider-margins" />
     <div className="content mb-0">
@@ -435,6 +492,8 @@ export default function ManageMenu(){
         <i className="fa fa-check disabled valid color-green-dark" />
         <em>(obligatorio)</em>
       </div>
+      <input type="checkbox" id="allergensOn" onChange={allergens} />¿Este producto contiene alérgenos?
+      <div id="selectorAllergies"></div>
       <div style={{padding: '10px'}}>
           <input type="file" id="actualBtn" onChange={onSelectFile} hidden/>
           <label style={{backgroundColor: "indigo", color: "white", padding: "0.5rem", borderRadius: "0.3rem", cursor: "pointer", marginTop: "1rem"}}for="actualBtn">Sube una imagen de tu producto</label>
@@ -448,7 +507,7 @@ export default function ManageMenu(){
       </div>
     </div>
   </div>
-  <div id="menu-modal-cart-edit" className="menu menu-box-modal menu-box-detached">
+  <div id="menu-modal-cart-edit" className="menu menu-box-modal menu-box-detached" style={{maxHeight: '100vh'}}>
     <div className="menu-title"><h1>Editar producto</h1><div class="divider divider-margins"></div><p style={{marginRight: "50px"}}>Para cambiar la imagen simplemente presiona el botón "Cambiar imagen" y sube tu nueva imagen.</p><a href="#" className="close-menu"><i className="fa fa-times" /></a></div>
     <div className="divider divider-margins" />
     <div className="content mb-0">
@@ -467,6 +526,8 @@ export default function ManageMenu(){
             <input className="color-highlight" id="productToEditPrice"></input><br></br>
             <a href="javascript:void(0);" onClick={deleteProduct} style={{cursor: "pointer"}} className="color-theme opacity-50 font-10 close-menu"><i className="fa fa-times color-red-dark pe-2 pt-3" />Borrar producto</a>
           </div>
+          <input type="checkbox" id="allergensEdit" />¿Este producto contiene alérgenos?
+          <div id="selectorAllergiesEdit"></div>
         </div>
       </div>
       <a href="javascript:void(0);" onClick={editProduct} className="close-menu btn  btn-m font-800 rounded-sm btn-full text-uppercase bg-green-light">Guardar</a>

@@ -14,13 +14,18 @@ export default function MainScreen(){
     useEffect(() => {
       fetch("/session", {credentials: 'include'}).then(response => response.json()).then((data) => {
         if(data.loggedin != true){
-            setLoading(false)
+          setTimeout(() => {
             setLoggedin(false)
-          return
+            setLoading(false)
+  
+          }, 1500)  
+            return
         }
+        setTimeout(() => {
           setLoggedin(true)
           setLoading(false)
-  
+
+        }, 1500)  
       })  
     }, [])  
     return(

@@ -1,3 +1,5 @@
 node_modules/
 boilerplate-test/
 deploy.bat
+connect.bat
+.env

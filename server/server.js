@@ -85,7 +85,7 @@ app.use(sessionMiddleware);
 
 passport.use(new GoogleStrategy({
   clientID: '602261944879-tvn5dfe1f32ajlht7dnab2bgjlo51jfh.apps.googleusercontent.com',
-  clientSecret: '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',
+  clientSecret: 'hidden',
   callbackURL: "https://mioes.app/auth/google/callback",
   passReqToCallback   : true
 },
@@ -356,7 +356,7 @@ app.get("/carta/:restaurant", (req, res) => {
         }
         if(lang == "cat"){
           translate.engine = "google"
-          translate.key = "AIzaSyCUjkH_o3ew3hiatWtOlYME8bB-a2jiRO8"
+          translate.key = "hidden"
           const titleTranslated = await translate(result[0].titleMenu, {from: 'es', to: 'cat'});
           var translatedMenu = []
           var translatedProducts = []
@@ -382,7 +382,7 @@ app.get("/carta/:restaurant", (req, res) => {
         }
         if(lang == "eng"){
           translate.engine = "google"
-          translate.key = "AIzaSyCUjkH_o3ew3hiatWtOlYME8bB-a2jiRO8"
+          translate.key = "hidden"
           const titleTranslated = await translate(result[0].titleMenu, {from: 'es', to: 'en'});
           var translatedMenu = []
           var translatedProducts = []
@@ -408,7 +408,7 @@ app.get("/carta/:restaurant", (req, res) => {
         }
         if(lang == "fr"){
           translate.engine = "google"
-          translate.key = "AIzaSyCUjkH_o3ew3hiatWtOlYME8bB-a2jiRO8"
+          translate.key = "hidden"
           const titleTranslated = await translate(result[0].titleMenu, {from: 'es', to: 'fr'});
           var translatedMenu = []
           var translatedProducts = []
